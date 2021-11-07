@@ -14,6 +14,9 @@ def get_teams(html):
         if team_name_link != None:
             team_name = team_name_link.get("title")
             team_name = team_name.replace(" FIFA 22", "")
+        team_league_link = team.find("a", class_="link-league")
+        if team_league_link != None:
+            team_league = team_league_link.get("title")
         team_rating_list = team.find("span", class_="star")
         if team_rating_list != None:
             team_rating_full_stars = team_rating_list.findAll("i", class_="fas fa-star fa-lg")
@@ -23,7 +26,7 @@ def get_teams(html):
             else:
                 team_rating = len(team_rating_full_stars)
         if team_name_link != None and team_rating_list != None:
-            team_result.append(dict(team=team_name, rating=team_rating))
+            team_result.append(dict(team=team_name, rating=team_rating, league=team_league))
     return team_result
 
 
@@ -56,6 +59,7 @@ def run_extractor(check,base_url):
         teams = teams + get_teams(create_team_soup(url))
         counter = counter + 1
         print(teams)
+
     with open('teams.json', 'w', encoding='utf-8') as f:
         json.dump(teams, f, ensure_ascii=False, indent=4)
 
