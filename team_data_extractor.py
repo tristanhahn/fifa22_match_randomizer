@@ -1,10 +1,9 @@
 import requests
+import json
 from bs4 import BeautifulSoup
 
 CHECK = True
-COUNTER = 1
 URL = "https://www.fifaindex.com/teams/?page="
-TEAMS = []
 
 
 def get_teams(html):
@@ -48,13 +47,17 @@ def get_next_page(url):
         else:
             return False
 
+def run_extractor(check,base_url):
+    counter = 1
+    teams = []
+    while check == True:
+        url = base_url + str(counter)
+        check = get_next_page(url)
+        teams = teams + get_teams(create_team_soup(url))
+        counter = counter + 1
+        print(teams)
+    with open('teams.json', 'w', encoding='utf-8') as f:
+        json.dump(teams, f, ensure_ascii=False, indent=4)
 
-while CHECK == True:
-    print(COUNTER)
-    url = URL + str(COUNTER)
-    CHECK = get_next_page(url)
-    TEAMS = TEAMS + get_teams(create_team_soup(url))
-    COUNTER = COUNTER + 1
-    print(url)
-    print(TEAMS)
-    print(CHECK)
+
+run_extractor(CHECK,URL)
