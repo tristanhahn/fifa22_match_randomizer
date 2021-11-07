@@ -50,7 +50,8 @@ def get_next_page(url):
         else:
             return False
 
-def run_extractor(check,base_url):
+
+def run_extractor(check, base_url):
     counter = 1
     teams = []
     while check == True:
@@ -64,4 +65,4 @@ def run_extractor(check,base_url):
         json.dump(teams, f, ensure_ascii=False, indent=4)
 
 
-run_extractor(CHECK,URL)
+run_extractor(CHECK, URL)
