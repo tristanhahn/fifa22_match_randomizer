@@ -2,7 +2,7 @@ import json
 import random
 
 with open("teams.json", "r", encoding="utf-8") as read_file:
-    teams = json.load(read_file)
+    team_list = json.load(read_file)
 
 
 def set_filters(teams, rating, exlusion_leagues):
@@ -37,4 +37,4 @@ league_exclusion_list = ["Mexico Liga MX (1)", "CONMEBOL Sudamericana", "Argenti
                          "Brazil Serie A (1)", "CONMEBOL Libertadores", "USA Major League Soccer (1)",
                          "Saudi Pro League (1)", "Brazil Serie A (1)"]
 
-get_random_match(set_filters(teams, 3.5, league_exclusion_list))
+get_random_match(set_filters(team_list, 3.5, league_exclusion_list))
