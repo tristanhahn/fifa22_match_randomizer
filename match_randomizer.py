@@ -29,6 +29,5 @@ league_exclusion_list = ["Mexico Liga MX (1)", "CONMEBOL Sudamericana", "Argenti
                          "Brazil Serie A (1)", "CONMEBOL Libertadores", "USA Major League Soccer (1)",
                          "Saudi Pro League (1)", "Brazil Serie A (1)"]
 
-filtered_team_list = set_filters(teams = team_list, rating = 3.5, exlusion_leagues=league_exclusion_list)
-print(filtered_team_list)
-get_random_match(filtered_team_list)
+
+get_random_match(set_filters(teams = team_list, rating = 3.5, exlusion_leagues=league_exclusion_list))
