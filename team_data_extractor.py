@@ -60,7 +60,6 @@ def run_extractor(check, base_url):
         teams = teams + get_teams(create_team_soup(url))
         counter = counter + 1
         print(teams)
-
     with open('teams.json', 'w', encoding='utf-8') as f:
         json.dump(teams, f, ensure_ascii=False, indent=4)
 

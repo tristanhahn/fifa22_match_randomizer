@@ -7,16 +7,8 @@ with open("teams.json", "r", encoding="utf-8") as read_file:
 
 def set_filters(teams, rating, exlusion_leagues):
     filtered_teams = []
-
     for team in teams:
-        for league in exlusion_leagues:
-            if team["league"] == league:
-                removed_team = teams.pop(teams.index(team))
-                print(removed_team)
-                break
-
-    for team in teams:
-        if team["rating"] >= rating:
+        if team["rating"] >= rating and team["league"] not in exlusion_leagues:
             filtered_teams.append(team)
 
     return filtered_teams
@@ -37,4 +29,6 @@ league_exclusion_list = ["Mexico Liga MX (1)", "CONMEBOL Sudamericana", "Argenti
                          "Brazil Serie A (1)", "CONMEBOL Libertadores", "USA Major League Soccer (1)",
                          "Saudi Pro League (1)", "Brazil Serie A (1)"]
 
-get_random_match(set_filters(team_list, 3.5, league_exclusion_list))
+filtered_team_list = set_filters(teams = team_list, rating = 3.5, exlusion_leagues=league_exclusion_list)
+print(filtered_team_list)
+get_random_match(filtered_team_list)
