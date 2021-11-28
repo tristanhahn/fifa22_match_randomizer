@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+    <head>
+         {% block title %}<title>Team Overview</title>{% endblock %}
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body>
+        {% block page_content %}
+        <h1>Teams</h1>
+        <div class="row">
+        {% for team in teams %}
+        <div class="col-md-4">
+            <div class="card-body">
+                    <h5 class="team-name">{{ team.name }}</h5>
+                    <p class="team-league">{{ team.league }}</p>
+                    <p class="team-rating">{{ team.rating }}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+        </div>
+          {% endblock %}
+    </body>
