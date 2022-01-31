@@ -1,9 +1,8 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+from datetime import date
 
-CHECK = True
-URL = "https://www.fifaindex.com/teams/?page="
 
 
 def get_teams(html):
@@ -50,18 +49,34 @@ def get_next_page(url):
         else:
             return False
 
+def check_if_extractor_already_run_today():
+    try:
+        with open("last_data_pull.json", "r", encoding="utf-8") as read_file:
+            data = json.load(read_file)
+        if data["last_pull_date"] == str(date.today()):
+            return True
+        else:
+            False
+    except json.JSONDecodeError:
+        return False
+    except FileNotFoundError:
+        return False
 
-def run_extractor(check, base_url):
+
+def run_extractor():
     counter = 1
     teams = []
+    check = True
+    base_url = "https://www.fifaindex.com/teams/?page="
     while check == True:
         url = base_url + str(counter)
         check = get_next_page(url)
         teams = teams + get_teams(create_team_soup(url))
         counter = counter + 1
         print(teams)
-    with open('teams.json', 'w', encoding='utf-8') as f:
+    with open('teams.json', mode='w+', encoding='utf-8') as f:
         json.dump(teams, f, ensure_ascii=False, indent=4)
+    with open('last_data_pull.json', mode='w+', encoding='utf-8') as f1:
+        json.dump({'last_pull_date':str(date.today())}, f1, ensure_ascii=False, indent=4)
 
 
-run_extractor(CHECK, URL)

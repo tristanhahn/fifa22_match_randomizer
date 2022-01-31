@@ -1,8 +1,12 @@
 import json
 import random
+import team_data_extractor
+
+if team_data_extractor.check_if_extractor_already_run_today() == False:
+    team_data_extractor.run_extractor()
 
 with open("teams.json", "r", encoding="utf-8") as read_file:
-    team_list = json.load(read_file)
+        team_list = json.load(read_file)
 
 
 def set_filters(teams, rating, exlusion_leagues):
@@ -29,5 +33,5 @@ league_exclusion_list = ["Mexico Liga MX (1)", "CONMEBOL Sudamericana", "Argenti
                          "Brazil Serie A (1)", "CONMEBOL Libertadores", "USA Major League Soccer (1)",
                          "Saudi Pro League (1)", "Brazil Serie A (1)"]
 
-
-get_random_match(set_filters(teams = team_list, rating = 3.5, exlusion_leagues=league_exclusion_list))
+def run_randomizer(rating):
+    get_random_match(set_filters(teams = team_list, rating = rating, exlusion_leagues=league_exclusion_list))
