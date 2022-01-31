@@ -17,6 +17,6 @@ This script allows you generate random Fifa22 matches using Python
 
 ### Executing scripts
 
-* Run __init__.py to execute the match randomizer
+* Run \__init\__.py to execute the match randomizer
 * Modify the rating filter in main() if you want to include/exclude teams with different ratings
 * In match_randmoizer.py you can also find a league exclusion list that you can modify

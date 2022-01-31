@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 from datetime import date
 
 
-
 def get_teams(html):
     team_result = []
     team_data = html.find_all("tr")
@@ -49,6 +48,7 @@ def get_next_page(url):
         else:
             return False
 
+
 def check_if_extractor_already_run_today():
     try:
         with open("last_data_pull.json", "r", encoding="utf-8") as read_file:
@@ -77,6 +77,4 @@ def run_extractor():
     with open('teams.json', mode='w+', encoding='utf-8') as f:
         json.dump(teams, f, ensure_ascii=False, indent=4)
     with open('last_data_pull.json', mode='w+', encoding='utf-8') as f1:
-        json.dump({'last_pull_date':str(date.today())}, f1, ensure_ascii=False, indent=4)
-
-
+        json.dump({'last_pull_date': str(date.today())}, f1, ensure_ascii=False, indent=4)
