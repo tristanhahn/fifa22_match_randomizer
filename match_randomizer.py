@@ -1,20 +1,21 @@
 import json
 import random
-import team_data_extractor
+from team_data_extractor import run_extractor
 
-if team_data_extractor.check_if_extractor_already_run_today() == False:
-    team_data_extractor.run_extractor()
+try:
+    with open("teams.json", "r", encoding="utf-8") as read_file:
+        team_list = json.load(read_file)
+except FileNotFoundError:
+    run_extractor()
+    with open("teams.json", "r", encoding="utf-8") as read_file:
+        team_list = json.load(read_file)
 
-with open("teams.json", "r", encoding="utf-8") as read_file:
-    team_list = json.load(read_file)
 
-
-def set_filters(teams, rating, exlusion_leagues):
+def set_filters(teams, rating_min, rating_max, exlusion_leagues) -> list:
     filtered_teams = []
     for team in teams:
-        if team["rating"] >= rating and team["league"] not in exlusion_leagues:
+        if team["rating"] >= rating_min and team["rating"] <= rating_max and team["league"] not in exlusion_leagues:
             filtered_teams.append(team)
-
     return filtered_teams
 
 
@@ -29,10 +30,6 @@ def get_random_match(teams):
         "team"] + " (" + str(team_2["rating"]) + ")" + " (" + team_2["league"] + ")")
 
 
-league_exclusion_list = ["Mexico Liga MX (1)", "CONMEBOL Sudamericana", "Argentina Primera División (1)",
-                         "Brazil Serie A (1)", "CONMEBOL Libertadores", "USA Major League Soccer (1)",
-                         "Saudi Pro League (1)", "Brazil Serie A (1)"]
-
-
-def run_randomizer(rating):
-    get_random_match(set_filters(teams=team_list, rating=rating, exlusion_leagues=league_exclusion_list))
+def run_randomizer(rating_min=0, rating_max=5, exlusion_leagues=[]):
+    get_random_match(
+        set_filters(teams=team_list, rating_min=rating_min, rating_max=rating_max, exlusion_leagues=exlusion_leagues))

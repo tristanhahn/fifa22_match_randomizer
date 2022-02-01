@@ -64,6 +64,7 @@ def check_if_extractor_already_run_today():
 
 
 def run_extractor():
+    print("Updating teams data")
     counter = 1
     teams = []
     check = True
@@ -73,8 +74,9 @@ def run_extractor():
         check = get_next_page(url)
         teams = teams + get_teams(create_team_soup(url))
         counter = counter + 1
-        print(teams)
+
     with open('teams.json', mode='w+', encoding='utf-8') as f:
         json.dump(teams, f, ensure_ascii=False, indent=4)
     with open('last_data_pull.json', mode='w+', encoding='utf-8') as f1:
         json.dump({'last_pull_date': str(date.today())}, f1, ensure_ascii=False, indent=4)
+    print("Teams data updated")
