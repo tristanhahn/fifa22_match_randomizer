@@ -51,7 +51,7 @@ def get_next_page(url):
 
 def check_if_extractor_already_run_today():
     try:
-        with open("last_data_pull.json", "r", encoding="utf-8") as read_file:
+        with open("../resources/last_data_pull.json", "r", encoding="utf-8") as read_file:
             data = json.load(read_file)
         if data["last_pull_date"] == str(date.today()):
             return True
@@ -75,8 +75,8 @@ def run_extractor():
         teams = teams + get_teams(create_team_soup(url))
         counter = counter + 1
 
-    with open('teams.json', mode='w+', encoding='utf-8') as f:
+    with open('../resources/teams.json', mode='w+', encoding='utf-8') as f:
         json.dump(teams, f, ensure_ascii=False, indent=4)
-    with open('last_data_pull.json', mode='w+', encoding='utf-8') as f1:
+    with open('../resources/last_data_pull.json', mode='w+', encoding='utf-8') as f1:
         json.dump({'last_pull_date': str(date.today())}, f1, ensure_ascii=False, indent=4)
     print("Teams data updated")

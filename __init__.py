@@ -1,5 +1,4 @@
-import team_data_extractor
-import match_randomizer
+from src import match_randomizer
 
 
 def main():
