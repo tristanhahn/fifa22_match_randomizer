@@ -3,11 +3,11 @@ import random
 from src.team_data_extractor import run_extractor
 
 try:
-    with open("../resources/teams.json", "r", encoding="utf-8") as read_file:
+    with open("resources/teams.json", "r", encoding="utf-8") as read_file:
         team_list = json.load(read_file)
 except FileNotFoundError:
     run_extractor()
-    with open("../resources/teams.json", "r", encoding="utf-8") as read_file:
+    with open("resources/teams.json", "r", encoding="utf-8") as read_file:
         team_list = json.load(read_file)
 
 
